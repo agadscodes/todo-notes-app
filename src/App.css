@@ -267,6 +267,10 @@
   margin-bottom: 18px;
 }
 
+.composer-row:has(.ghost-button) {
+  grid-template-columns: minmax(0, 1.5fr) 120px auto auto;
+}
+
 input,
 select,
 textarea {
@@ -560,6 +564,11 @@ textarea {
 }
 
 .delete-note {
+  margin-top: 0;
+}
+
+.note-actions {
+  gap: 8px;
   margin-top: auto;
 }
 

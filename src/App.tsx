@@ -12,48 +12,6 @@ import { useLocalStorage } from './hooks/useLocalStorage'
 import { deleteAudioRecord, getAudioRecord, saveAudioRecord } from './services/idbStorage'
 import type { Note, Priority, SavedVoiceMemo, Todo, VoiceNoteMeta } from './types'
 
-const initialTodos: Todo[] = [
-  {
-    id: 'todo-1',
-    title: 'Plan the week',
-    description: 'Outline the next sprint and key deliverables.',
-    isCompleted: false,
-    priority: 'high',
-    dueDate: '2026-09-30',
-    createdAt: Date.now(),
-  },
-  {
-    id: 'todo-2',
-    title: 'Review design notes',
-    description: 'Capture improvements to the dashboard layout.',
-    isCompleted: true,
-    priority: 'medium',
-    dueDate: '2026-09-29',
-    createdAt: Date.now() - 1000 * 60 * 15,
-  },
-]
-
-const initialNotes: Note[] = [
-  {
-    id: 'note-1',
-    title: 'Productive rituals',
-    content: 'Keep the first hour of the day free for the work that matters most and avoid context switching.',
-    tags: ['focus', 'habits'],
-    pinned: true,
-    createdAt: Date.now() - 1000 * 60 * 30,
-    updatedAt: Date.now() - 1000 * 60 * 10,
-  },
-  {
-    id: 'note-2',
-    title: 'Launch ideas',
-    content: 'Collect quick prototypes, beta feedback, and customer quotes into a single review folder.',
-    tags: ['ideas', 'growth'],
-    pinned: false,
-    createdAt: Date.now() - 1000 * 60 * 90,
-    updatedAt: Date.now() - 1000 * 60 * 45,
-  },
-]
-
 const createId = () =>
   typeof crypto !== 'undefined' && crypto.randomUUID
     ? crypto.randomUUID()
@@ -62,8 +20,16 @@ const createId = () =>
 const getTimestamp = () => Date.now()
 
 function App() {
-  const [todos, setTodos] = useLocalStorage<Todo[]>('todo-notes-app-todos', initialTodos)
-  const [notes, setNotes] = useLocalStorage<Note[]>('todo-notes-app-notes', initialNotes)
+  const [todos, setTodos] = useLocalStorage<Todo[]>(
+    'todo-notes-app-todos',
+    [],
+    (items) => items.filter((todo) => todo.id !== 'todo-1' && todo.id !== 'todo-2'),
+  )
+  const [notes, setNotes] = useLocalStorage<Note[]>(
+    'todo-notes-app-notes',
+    [],
+    (items) => items.filter((note) => note.id !== 'note-1' && note.id !== 'note-2'),
+  )
   const [savedVoiceMemos, setSavedVoiceMemos] = useLocalStorage<SavedVoiceMemo[]>(
     'todo-notes-app-saved-voice-memos',
     [],

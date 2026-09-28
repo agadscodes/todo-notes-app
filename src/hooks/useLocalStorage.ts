@@ -1,14 +1,18 @@
 import { useEffect, useState } from 'react'
 
-export function useLocalStorage<T>(key: string, initialValue: T) {
+export function useLocalStorage<T>(
+  key: string,
+  initialValue: T,
+  normalize: (storedValue: T) => T = (storedValue) => storedValue,
+) {
   const [value, setValue] = useState<T>(() => {
     if (typeof window === 'undefined') {
-      return initialValue
+      return normalize(initialValue)
     }
 
     try {
       const raw = window.localStorage.getItem(key)
-      return raw ? (JSON.parse(raw) as T) : initialValue
+      return normalize(raw ? (JSON.parse(raw) as T) : initialValue)
     } catch {
       return initialValue
     }

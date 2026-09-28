@@ -9,7 +9,7 @@ Northstar is a browser-based productivity workspace for managing todos, capturin
 - **Notes:** Create and edit notes with titles, content, and comma-separated tags; pin and delete notes; attach an in-progress voice memo to a note.
 - **Voice memos:** Record from the browser microphone, name and save recordings to the Voice Memos library, play and seek with the custom player, and remove recordings.
 - **Settings:** Switch between English and Spanish and toggle light mode. Settings and workspace data persist between visits.
-- **Viewport layout:** The workspace is sized to the browser viewport. Longer lists scroll within their content areas rather than expanding the page.
+- **Viewport layout:** The workspace is sized to the browser viewport. Scrollbar visuals are hidden, while longer lists remain scrollable within their content areas.
 
 ## Tech Stack
 
@@ -66,4 +66,4 @@ Vite prints the local URL when the server starts.
 
 Todos, notes, display preferences, and voice memo metadata are stored locally in `localStorage`. Audio files are stored as Blobs in IndexedDB rather than encoded into local storage. Clearing browser site data removes this locally stored workspace data and recordings.
 
-The application includes starter todo and note examples for first launch. Data stays in the browser profile and is not synchronized between devices.
+New workspaces start with empty todo and note lists. Previously stored starter examples are removed during migration; other saved items are preserved. Data stays in the browser profile and is not synchronized between devices.
